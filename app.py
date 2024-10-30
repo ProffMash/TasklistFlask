@@ -37,7 +37,21 @@ def create():
         tasks.append({'id': new_id, 'title': title, 'description': description, 'done': False})
         return redirect(url_for('index'))
     
+@app.route('/delete/<int:id>')
+def delete(id):
+    global tasks
+    tasks = [task for task in tasks if task['id'] !=id]
+    return redirect(url_for('index'))
 
+@app.route('/edit/<int:id>', methods=["GET","POST"])
+def edit(id):
+    task = next((task for task in tasks if task['id'] == id), None)
+    print(task)
+    if request.method == 'POST':
+        task['title'] = request.form['title']
+        task['description'] = request.form['description']
+        return redirect(url_for('index'))
+    return render_template('edit.html', task=task)
         
         
 if __name__ == '__main__':
