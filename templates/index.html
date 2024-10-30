@@ -20,6 +20,23 @@
             </label>
             <button type="submit" class="btn btn-primary">Add Task</button>
     </form> 
+    <br/><br/><br/>
+    <!--view for my tasks-->
+    <div class="containers">
+        <h4>My Tasks</h4>
+        <ul>
+            <!--using jinja loop the list items-->
+            {% for task in tasks %}
+                <li>
+                    <h5>{{ task.title }}</h5>
+                    <p>{{ task.description }}</p>
+                    <p>{{task.done}}</p>
+                    <a href="/edit/{{ task.id }}" class="btn btn-primary">Edit</a>
+                    <a href="/delete/{{ task.id }}" class="btn btn-danger">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
