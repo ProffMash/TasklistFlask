@@ -10,19 +10,16 @@ tasks = [
         'id': 1,
         'title': 'Buy groceries',
         'description': 'Milk, Cheese, Pizza, Fruit, Tylenol',
-        'done': False
     },
     {
         'id': 2,
         'title': 'Learn Python',
         'description': 'Need to find a good Python tutorial on the web',
-        'done': False
     },
     {
         'id': 3,
         'title': 'Learn Flask',
         'description': 'Need to find a good Flask tutorial on the web',
-        'done': False
     }
 ]
 
@@ -31,5 +28,17 @@ tasks = [
 def index():
     return render_template('index.html', tasks=tasks)
 
+@app.route('/create', methods=['POST'])
+def create():
+     if request.method == 'POST':
+        new_id=len(tasks)+1
+        title = request.form['title']
+        description = request.form['description']
+        tasks.append({'id': new_id, 'title': title, 'description': description, 'done': False})
+        return redirect(url_for('index'))
+    
+
+        
+        
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
